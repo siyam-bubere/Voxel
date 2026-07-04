@@ -1,0 +1,417 @@
+/* Base Reset & Container */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.landingPageContainer {
+  width: 100%;
+  min-height: 100vh; /* Elastic dynamic height baseline */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-block: 1.6rem;
+  
+  background-image: url("/background2.png"); 
+  background-repeat: no-repeat;
+  background-size: cover; /* Stretches waves beautifully without clipping */
+  background-position: center bottom;
+  background-color: #ffffff; 
+  
+  overflow-y: auto; /* Gracefully allows scrolling on shorter screens or windows */
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Fixed Navigation Bar - Balanced & Vertically Aligned */
+.navbar {
+  width: 100%;
+  padding: 1rem 3rem; 
+  background-color: transparent;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+}
+
+.navHeader {
+  display: flex;
+  align-items: center;
+}
+
+.navLogo {
+  height: 45px;            
+  width: auto;             
+  object-fit: contain;     
+  border-radius: 0;        
+  display: block;
+}
+
+/* Navigation Menu Links */
+.navList {
+  display: flex;
+  align-items: center; 
+  gap: 2rem;           
+  cursor: pointer;
+}
+
+.navLink {
+  text-decoration: none;
+  color: #475569;      
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navLink:hover {
+  color: #0f172a;      
+}
+
+/* Stylized Interactive Login Button */
+.loginButton {
+  background-color: #0f172a; 
+  color: #ffffff;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 20px;       
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.loginButton:hover {
+  background-color: #1e293b; 
+  transform: translateY(-1px); 
+}
+
+/* Hero Section layout split into a two-column row row */
+.heroContent {
+  flex: 1;
+  display: flex;
+  flex-direction: row;       
+  justify-content: space-between; 
+  align-items: center;       
+  padding-top: 2vh;          
+  padding-bottom: 6vh; /* Creates clear breathing gap above the footer overlay */
+  padding-inline: 5rem;      
+  z-index: 10;
+}
+
+/* Left Column for text & meeting actions */
+.heroLeft {
+  flex: 1;
+  max-width: 55%;            
+  text-align: left;          
+}
+
+.heroContent h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #0f172a; 
+  max-width: 850px;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.heroContent p {
+  font-size: 1.25rem;
+  color: #475569;
+  font-weight: 400;
+}
+
+/* Right Column for phone mockup image */
+.heroRight {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end; 
+  align-items: center;
+  max-width: 45%;
+}
+
+/* Styling for the phone mockup image asset */
+.mockupImage {
+  max-height: 60vh;          
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0px 20px 40px rgba(15, 23, 42, 0.15)); 
+}
+
+/* Styling for the multicolor Voxel word in the hero section */
+.voxel-text {
+  display: inline-block;
+}
+
+.voxel-text .v { color: #de6819; }
+.voxel-text .o { color: #085cb1; }
+.voxel-text .x { color: #0d9b20; }
+.voxel-text .e { color: #f35217; }
+.voxel-text .l { color: #085cb1; }
+.dot { color: #0f172a; }
+
+/* --- COMPLETED MEET ACTION LAYOUT & NOTIFICATIONS --- */
+.meetActionsWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2.5rem;
+  gap: 0.75rem;
+}
+
+.meetActionsContainer {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.newMeetingBtn {
+  background-color: #1a73e8;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.newMeetingBtn:hover {
+  background-color: #1557b0;
+  box-shadow: 0 1px 3px 0 rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
+}
+
+.newMeetingBtn:disabled {
+  background-color: #bdc1c6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.meetIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.joinMeetingForm {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 48px; 
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.keyboardIcon {
+  position: absolute;
+  left: 14px;
+  width: 20px;
+  height: 20px;
+  color: #5f6368;
+  pointer-events: none;
+}
+
+.meetCodeInput {
+  border: 1px solid #747775;
+  border-radius: 8px;
+  height: 48px;
+  padding: 0 16px 0 48px;
+  font-size: 1rem;
+  color: #1f1f1f;
+  outline: none;
+  width: 250px;
+  transition: border-color 0.15s ease-in-out;
+}
+
+.meetCodeInput:focus {
+  border: 2px solid #1a73e8;
+  padding-left: 47px;
+}
+
+/* Input layout changes to red if backend validation drops a 404 block */
+.meetCodeInput.inputError {
+  border: 1px solid #c5221f;
+}
+
+.meetCodeInput.inputError:focus {
+  border: 2px solid #c5221f;
+  padding-left: 47px;
+}
+
+/* Dynamic slide fade animation for valid action button toggle state triggers */
+.joinMeetBtn.active {
+  color: #1a73e8;
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  animation: fadeInButton 0.2s ease-out forwards;
+}
+
+.joinMeetBtn.active:hover {
+  color: #1557b0;
+}
+
+/* Error message typography block styled like Google's design system */
+.meetErrorMessage {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #c5221f;
+  font-size: 0.85rem;
+  font-weight: 400;
+  margin-left: 11.5rem; 
+  animation: fadeInButton 0.15s ease-out forwards;
+}
+
+.errorIcon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+@keyframes fadeInButton {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- FOOTER LAYOUT --- */
+.footer {
+  width: 100%;
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(15, 23, 42, 0.05);
+  margin-top: auto; /* Forces footer cleanly to screen bottom if screen height stretches */
+}
+
+.footerLeft p {
+  font-size: 0.9rem;
+  color: #475569; 
+  font-weight: 500;
+}
+
+.footerRight {
+  display: flex;
+  gap: 2rem;
+}
+
+.footerLink {
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: #475569;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.footerLink:hover {
+  color: #0f172a; 
+}
+
+/* --- SMALL SCREEN RESPONSIVENESS UPDATES --- */
+@media (max-width: 1024px) {
+  .footer {
+    padding: 1.5rem;
+    flex-direction: column-reverse; 
+    gap: 1rem;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.85); 
+  }
+
+  .footerRight {
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Break the Side-by-Side View into a Stack */
+  .heroContent {
+    flex-direction: column;    
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 6vh;          
+    padding-inline: 1.5rem;    
+    gap: 3rem;                 
+  }
+
+  .heroLeft {
+    max-width: 100%;           
+    text-align: center;        
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .heroContent h1 {
+    font-size: 2.5rem;         
+    max-width: 600px;
+  }
+
+  .heroContent p {
+    font-size: 1.1rem;
+  }
+
+  .heroRight {
+    max-width: 100%;
+    width: 100%;
+    justify-content: center;   
+  }
+
+  .mockupImage {
+    max-height: 45vh;          
+    width: auto;
+  }
+
+  .meetActionsContainer {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .joinMeetingForm {
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+  }
+
+  .inputWrapper, .meetCodeInput {
+    width: 100%;
+  }
+  
+  .meetErrorMessage {
+    margin-left: 0;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* Extra optimization for compact smartphone viewports */
+@media (max-width: 480px) {
+  .heroContent h1 {
+    font-size: 2.1rem;
+  }
+  
+  .navbar {
+    padding-inline: 1rem;
+  }
+  
+  .navList {
+    gap: 0.8rem;
+  }
+}

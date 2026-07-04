@@ -1,0 +1,168 @@
+.notFoundContainer {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  padding: 2rem;
+}
+
+/* Subtle, soothing background glowing blur layers mimicking landing layout waves */
+.decorBlur {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  z-index: 1;
+}
+
+.circle1 {
+  width: 400px;
+  height: 400px;
+  background-color: #1a73e8;
+  top: -10%;
+  left: -5%;
+}
+
+.circle2 {
+  width: 500px;
+  height: 500px;
+  background-color: #de6819;
+  bottom: -15%;
+  right: -5%;
+}
+
+.notFoundContent {
+  text-align: center;
+  max-width: 560px;
+  z-index: 10;
+  animation: smoothSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dynamic Multicolored Voxel Identifier Block Header */
+.voxelBrand {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.voxelBrand .v { color: #de6819; }
+.voxelBrand .o { color: #085cb1; }
+.voxelBrand .x { color: #0d9b20; }
+.voxelBrand .e { color: #f35217; }
+.voxelBrand .l { color: #085cb1; }
+.voxelBrand .dot { color: #0f172a; }
+.voxelBrand .meetTag { 
+  color: #475569; 
+  font-weight: 400;
+  margin-left: 0.2rem;
+}
+
+.errorCode {
+  font-size: 8rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #0f172a;
+  letter-spacing: -4px;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(180deg, #0f172a 30%, #475569 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.notFoundContent h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 1rem;
+}
+
+.errorDescription {
+  font-size: 1rem;
+  color: #475569;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+/* Button Layout Trays */
+.errorActionButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.primaryHomeBtn {
+  background-color: #0f172a;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+}
+
+.primaryHomeBtn:hover {
+  background-color: #1e293b;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.15);
+}
+
+.secondaryCreateBtn {
+  background-color: transparent;
+  color: #1a73e8;
+  border: 1px solid rgba(26, 115, 232, 0.3);
+  padding: 0.75rem 2rem;
+  border-radius: 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.secondaryCreateBtn:hover {
+  background-color: rgba(26, 115, 232, 0.05);
+  border-color: #1a73e8;
+  transform: translateY(-1px);
+}
+
+@keyframes smoothSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Scaling Overrides */
+@media (max-width: 480px) {
+  .errorCode {
+    font-size: 6rem;
+  }
+  
+  .notFoundContent h2 {
+    font-size: 1.6rem;
+  }
+
+  .errorActionButtons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .primaryHomeBtn, .secondaryCreateBtn {
+    width: 100%;
+  }
+}

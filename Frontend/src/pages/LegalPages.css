@@ -1,0 +1,105 @@
+/* Core Layout Styling */
+.legalPageContainer {
+  background-color: #0d1117; /* Slate dark background matching authentication screen */
+  color: #000000;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Content Area Constraint */
+.legalContentWrapper {
+  max-width: 800px;
+  width: 100%;
+  margin: 40px auto;
+  padding: 0 24px;
+  flex: 1;
+}
+
+/* Header Sections */
+.legalHeader {
+  border-bottom: 1px solid #21262d;
+  padding-bottom: 24px;
+  margin-bottom: 32px;
+}
+
+.legalHeader h1 {
+  color: #ffffff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+
+.lastUpdated {
+  color: #8b949e;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Text Content blocks */
+.legalSection {
+  margin-bottom: 32px;
+}
+
+.legalSection h2 {
+  color: #58a6ff; /* Clean Blue Theme Accent Color */
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 24px 0 12px 0;
+}
+
+.legalSection h3 {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 16px 0 8px 0;
+}
+
+.legalSection p {
+  line-height: 1.6;
+  color: #8b949e;
+  margin: 0 0 16px 0;
+}
+
+.introText {
+  font-size: 1.1rem;
+  color: #c9d1d9 !important;
+}
+
+.legalSection ul {
+  padding-left: 20px;
+  margin: 0 0 16px 0;
+}
+
+.legalSection li {
+  line-height: 1.6;
+  color: #8b949e;
+  margin-bottom: 8px;
+}
+
+/* Navbar Extension Styles */
+.navBrandText {
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-left: 8px;
+  letter-spacing: 0.5px;
+}
+
+.navBackBtn {
+  background-color: transparent;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+  padding: 6px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.navBackBtn:hover {
+  background-color: #21262d;
+  border-color: #8b949e;
+  color: #ffffff;
+}

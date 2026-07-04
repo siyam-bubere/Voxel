@@ -1,0 +1,341 @@
+/* ==========================================================================
+   Main Page Layout Shell & Core Alignment
+   ========================================================================== */
+.landingPageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Lets the page grow infinitely if content demands space */
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* NAVBAR STRUCTURAL BOUNDS */
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+/* HERO BODY CONTAINER */
+.heroContent.authOverride {
+  display: flex;
+  align-items: center; 
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 3rem; /* Added healthy safe default top/bottom spacing padding */
+  box-sizing: border-box;
+  
+  /* FIXED: Changed from strict height to dynamic min-height to prevent overlapping elements */
+  flex-grow: 1; 
+  min-height: calc(100vh - 180px); 
+}
+
+/* Ensure left content block never shifts under column height expansion */
+.heroLeft {
+  flex: 1;
+  align-self: center;
+}
+
+.authFormWrapper {
+  display: flex;
+  justify-content: flex-end; 
+  align-items: center;
+  background-color: transparent !important;
+  z-index: 20;
+}
+
+/* Sized & Compact Glassmorphic Structural Card Wrapper */
+.authFormCard {
+  width: 100%;
+  max-width: 390px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-radius: 24px;
+  background-color: transparent; 
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0px 20px 40px rgba(15, 23, 42, 0.08);
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Custom Toggle Control Pill Rails
+   ========================================================================== */
+.auth-toggle-container {
+  display: flex;
+  gap: 4px;
+  background-color: rgba(15, 23, 42, 0.06);
+  padding: 4px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+.auth-toggle-btn {
+  flex: 1;
+  border-radius: 9px !important;
+  text-transform: none !important;
+  font-weight: 600 !important;
+  font-size: 0.88rem !important;
+  padding: 6px 12px !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: none !important;
+}
+
+.auth-toggle-btn.MuiButton-contained {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  box-shadow: 0px 4px 10px rgba(15, 23, 42, 0.06) !important;
+}
+
+.auth-toggle-btn.MuiButton-text {
+  color: #475569 !important;
+}
+
+.auth-toggle-btn.MuiButton-text:hover {
+  background-color: rgba(15, 23, 42, 0.04) !important;
+  color: #0f172a !important;
+}
+
+/* ==========================================================================
+   Premium Interactive Component Overrides
+   ========================================================================== */
+.voxel-custom-input {
+  margin-top: 4px !important;       
+  margin-bottom: 4px !important;
+  background-color: rgba(255, 255, 255, 0.6); 
+  border-radius: 12px;
+}
+
+.voxel-custom-input .MuiOutlinedInput-root {
+  border-radius: 12px !important;
+  transition: all 0.2s ease;
+}
+
+.voxel-custom-input .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #0d9b20 !important; 
+}
+
+.voxel-custom-input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #085cb1 !important; 
+  border-width: 2px !important;
+}
+
+.voxel-custom-input .MuiInputLabel-root.Mui-focused {
+  color: #085cb1 !important;
+}
+
+/* Core System Brand Badges */
+.auth-avatar {
+  margin-bottom: 8px !important;
+  background-color: #de6819 !important; 
+  width: 44px !important;
+  height: 44px !important;
+  box-shadow: 0px 8px 16px rgba(222, 104, 25, 0.25) !important;
+}
+
+.auth-title {
+  font-weight: 800 !important;
+  color: #0f172a !important;
+  letter-spacing: -0.5px !important;
+  font-size: 1.5rem !important;
+}
+
+.auth-subtitle {
+  color: #475569 !important;
+  margin-top: 2px !important;
+  margin-bottom: 10px !important;
+  font-size: 0.88rem !important;
+}
+
+.auth-checkbox .Mui-checked {
+  color: #0d9b20 !important;
+}
+
+.auth-checkbox-label .MuiTypography-root {
+  font-size: 0.85rem !important;
+  color: #475569 !important;
+  font-weight: 500 !important;
+}
+
+.auth-link-secondary {
+  color: #475569 !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  font-size: 0.85rem !important;
+  transition: color 0.2s ease;
+}
+
+.auth-link-secondary:hover {
+  color: #0f172a !important;
+}
+
+.auth-link-primary {
+  color: #085cb1 !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  font-size: 0.88rem !important;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.auth-link-primary:hover {
+  text-decoration: underline !important;
+}
+
+/* BRAND UPGRADE: Gradient Action Submit Trigger */
+.auth-submit-btn {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+  border-radius: 12px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  text-transform: none !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  background: linear-gradient(135deg, #085cb1 0%, #0d9b20 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0px 4px 12px rgba(8, 92, 177, 0.2) !important;
+  transition: all 0.2s ease !important;
+}
+
+.auth-submit-btn:hover {
+  filter: brightness(1.06);
+  box-shadow: 0px 6px 16px rgba(13, 155, 32, 0.3) !important;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   Footer Layout Specifications
+   ========================================================================== */
+.footer {
+  width: 100%;
+  padding: 1.25rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  box-sizing: border-box;
+  margin-top: auto; 
+  flex-shrink: 0; /* Prevents the footer from squishing down on small heights */
+  
+  /* FIXED: Missing semicolons added to resolve background render issues */
+  background-color: transparent;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+.footerLeft p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #475569; 
+  font-weight: 500;
+}
+
+.footerRight {
+  display: flex;
+  gap: 2rem;
+}
+
+.footerLink {
+  text-decoration: none;
+  font-size: 0.88rem;
+  color: #475569;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.footerLink:hover {
+  color: #0f172a; 
+}
+
+/* ==========================================================================
+   Fluid Breakpoint Responsiveness Overrides
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .heroContent.authOverride {
+    flex-direction: column !important;
+    justify-content: center;
+    gap: 2.5rem;
+    height: auto;
+    padding: 40px 1.5rem;
+  }
+  
+  .authFormWrapper {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .footer {
+    padding: 1.5rem;
+    flex-direction: column-reverse; 
+    gap: 1rem;
+    text-align: center;
+    background-color: transparent;
+  }
+
+  .footerRight {
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   Premium UI Theme Snackbar Overrides
+   ========================================================================== */
+.MuiSnackbar-root {
+  top: 24px !important; 
+}
+
+.voxel-snackbar-success, 
+.voxel-snackbar-error {
+  border-radius: 16px !important;
+  padding: 8px 24px !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.2px !important;
+  box-shadow: 0px 16px 32px rgba(15, 23, 42, 0.12) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* ==========================================================================
+   FIXED: Force Text Message Internal Alignment Centering
+   ========================================================================== */
+.MuiSnackbarContent-message {
+  width: 100% !important;      /* Tells text layer wrapper to take up the full card horizontal footprint */
+  text-align: center !important; /* Horizontally balances the string text directly down the middle axis */
+}
+
+/* Success State styling */
+.voxel-snackbar-success {
+  background-color: rgba(13, 155, 32, 0.15) !important; 
+  color: #0d9b20 !important;
+  border: 1px solid rgba(13, 155, 32, 0.3) !important;
+}
+
+/* Error State styling */
+.voxel-snackbar-error {
+  background-color: rgba(222, 104, 25, 0.15) !important; 
+  color: #de6819 !important;
+  border: 1px solid rgba(222, 104, 25, 0.3) !important;
+}

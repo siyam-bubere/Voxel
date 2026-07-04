@@ -1,0 +1,813 @@
+:root {
+  --bg-light: #ffffff;
+  --bg-canvas: #f8f9fa;
+  --text-dark: #1f1f1f;
+  --text-muted: #5f6368;
+  --voxel-orange: #de6819;
+  --voxel-blue: #085cb1;
+  --voxel-green: #0d9b20;
+  --voxel-red: #f35217;
+  --google-red: #c5221f;
+  --control-border: #ccd0d5;
+  --border-divider: #e0e0e0;
+  --tile-bg: #202124;
+  --header-height: 64px;
+  --footer-height: 80px;
+}
+
+/* Make sure the real viewport root can actually give us 100% height to work with */
+html, body, #root {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   APP SHELL — a single flex column: header / content / footer.
+   Nothing here is ever sized with a hardcoded calc() against the
+   viewport, so it can't drift out of sync with the real header
+   or footer height and clip content underneath.
+   ============================================================ */
+.meet-app-container {
+  background-color: var(--bg-light);
+  height: 100vh;
+  height: 100dvh; /* accounts for mobile browser chrome */
+  width: 100vw;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--text-dark);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.lobby-outer-container,
+.main-meet-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0; /* critical: lets the flex child below shrink instead of overflowing */
+  width: 100%;
+}
+
+/* --- Clean Unified Global Branding Header --- */
+.global-app-header {
+  flex: 0 0 auto;
+  min-height: var(--header-height);
+  width: 100%;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-light);
+  z-index: 20;
+}
+
+.room-header-override {
+  border-bottom: 1px solid var(--border-divider);
+}
+
+.brand-logo-block {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.app-main-logo {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.brand-composed-text {
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+}
+
+.brand-composed-text .v { color: var(--voxel-orange); font-weight: 700; }
+.brand-composed-text .o { color: var(--voxel-blue); font-weight: 700; }
+.brand-composed-text .x { color: var(--voxel-green); font-weight: 700; }
+.brand-composed-text .e { color: var(--voxel-red); font-weight: 700; }
+.brand-composed-text .l { color: var(--voxel-blue); font-weight: 700; }
+.app-subtitle { color: var(--text-muted); font-weight: 400; margin-left: 2px; }
+
+.header-meta-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.meta-time-string {
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   LOBBY
+   ============================================================ */
+.lobby-wrapper {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background-color: var(--bg-light);
+  overflow-y: auto; /* scrolls gracefully instead of clipping on short screens */
+}
+
+.lobby-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 72px;
+  max-width: 1000px;
+  width: 100%;
+  margin: auto;
+}
+
+.lobby-preview-box {
+  flex: 1.35;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 60vh;
+  background-color: #111111;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.lobby-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+}
+
+.lobby-video-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #80868b;
+  gap: 12px;
+}
+
+.lobby-preview-actions {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 5;
+}
+
+.lobby-mini-btn {
+  background-color: rgba(32, 33, 36, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.lobby-mini-btn:hover {
+  background-color: rgba(32, 33, 36, 0.9);
+}
+
+.lobby-mini-btn.disabled {
+  background-color: var(--google-red);
+  border-color: transparent;
+}
+
+.lobby-setup-box {
+  flex: 0.85;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 260px;
+}
+
+.lobby-setup-box h2 {
+  font-size: 1.85rem;
+  font-weight: 400;
+  margin-bottom: 24px;
+  color: var(--text-dark);
+}
+
+.lobby-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lobby-input .MuiOutlinedInput-root {
+  color: var(--text-dark);
+}
+.lobby-input .MuiInputLabel-root {
+  color: var(--text-muted);
+}
+.lobby-input .MuiOutlinedInput-notchedOutline {
+  border-color: var(--control-border) !important;
+}
+.lobby-input .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: var(--text-dark) !important;
+}
+.lobby-input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--voxel-blue) !important;
+}
+
+.lobby-btn {
+  background-color: var(--voxel-blue) !important;
+  text-transform: none !important;
+  padding: 10px 24px !important;
+  font-size: 0.95rem !important;
+  border-radius: 24px !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+
+.lobby-btn:hover {
+  background-color: #064c94 !important;
+}
+
+/* ============================================================
+   ACTIVE CALL — adaptive Meet-style tile layout.
+   Each tile's exact width/height is computed in JS (best-fit
+   packing that preserves the real webcam aspect ratio) and
+   applied as an inline style. This container just centers
+   whatever tiles it's given — it never stretches a tile into a
+   shape that doesn't match the video, which is what caused
+   cropped faces before.
+   ============================================================ */
+.video-grid-container {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  box-sizing: border-box;
+  background-color: var(--bg-canvas);
+  overflow: hidden;
+}
+
+.video-card {
+  background-color: var(--tile-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.video-card video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(1); /* mirror the local webcam feed naturally */
+}
+
+.video-card:not(.local) video {
+  transform: scaleX(1); /* never mirror remote participants */
+}
+
+.grid-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: var(--voxel-blue);
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-label {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background-color: rgba(32, 33, 36, 0.75);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #ffffff;
+  max-width: calc(100% - 24px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --- Bottom Actions Footer --- */
+.bottom-controls-bar {
+  flex: 0 0 auto;
+  min-height: var(--footer-height);
+  width: 100%;
+  background-color: var(--bg-light);
+  border-top: 1px solid var(--border-divider);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  z-index: 10;
+  gap: 12px;
+}
+
+.meeting-info {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+}
+
+.room-id-tag {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.control-btn {
+  background-color: var(--bg-light);
+  border: 1px solid var(--control-border);
+  color: var(--text-dark);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.control-btn:hover {
+  background-color: #f1f3f4;
+}
+
+.control-btn.disabled {
+  background-color: #fdeded;
+  border-color: #f5c2c2;
+  color: var(--google-red);
+}
+
+.control-btn.disabled:hover {
+  background-color: #fbe3e3;
+}
+
+.control-btn.active {
+  background-color: var(--voxel-blue);
+  border-color: var(--voxel-blue);
+  color: #ffffff;
+}
+
+.control-btn.active:hover {
+  background-color: #064c94;
+}
+
+.control-btn.end-call-btn {
+  background-color: var(--google-red);
+  border: none;
+  color: #ffffff;
+  width: 56px;
+  border-radius: 18px;
+}
+
+.control-btn.end-call-btn:hover {
+  background-color: #a51d1a;
+}
+
+.side-panel-toggles {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.panel-icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.panel-icon-btn:hover {
+  background-color: #f1f3f4;
+  color: var(--text-dark);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 850px) {
+  .lobby-content {
+    flex-direction: column;
+    gap: 28px;
+  }
+  .lobby-preview-box {
+    max-height: 40vh;
+  }
+  .lobby-setup-box {
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+  .global-app-header {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .video-grid-container {
+    overflow-y: auto;
+    gap: 10px;
+    padding: 10px;
+    grid-template-columns: 1fr; /* Force 1 uniform column stack layout on mobile cards */
+  }
+  .bottom-controls-bar {
+    padding: 0 1rem;
+    gap: 8px;
+  }
+  
+  /* Kept visible! Adjust button padding slightly to save space */
+  .side-panel-toggles {
+    display: flex; 
+  }
+  
+  /* Hide the room ID text on smaller screens so the control/chat buttons don't get crushed */
+  .meeting-info {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .meta-time-string {
+    display: none;
+  }
+  .action-buttons {
+    gap: 6px;
+  }
+  .control-btn {
+    width: 40px;
+    height: 40px;
+  }
+  .control-btn.end-call-btn {
+    width: 48px;
+  }
+  .panel-icon-btn {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Short / landscape-phone viewports: shrink chrome so the video
+   area still gets meaningful space instead of being crushed. */
+@media (max-height: 600px) {
+  :root {
+    --header-height: 52px;
+    --footer-height: 64px;
+  }
+  .lobby-preview-box {
+    max-height: 36vh;
+  }
+  .app-main-logo {
+    height: 28px;
+  }
+  .brand-composed-text {
+    font-size: 1.1rem;
+  }
+}
+
+/* --- Meet Layout Core Framework --- */
+.meet-workspace-core {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  height: calc(100vh - 160px); /* Adjusts for global header and bottom controls bar */
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  padding: 0 16px;
+}
+
+/* Ensure video grid shares room width cleanly with sidebar */
+.video-grid-container {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
+  overflow: hidden;
+}
+
+/* --- Sidebar Chat Panel Layout --- */
+.meet-sidebar-chat-panel {
+  width: 360px;
+  min-width: 360px;
+  max-width: 400px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  margin-left: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  box-shadow: 0px 1px 3px rgba(60, 64, 67, 0.3), 0px 4px 8px 3px rgba(60, 64, 67, 0.15);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+/* Chat Header styling matching modern layout specs */
+.chat-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px 8px 24px;
+  background-color: #ffffff;
+}
+
+.chat-panel-header h3 {
+  margin: 0;
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #202124;
+}
+
+.chat-close-icon-btn {
+  background: none;
+  border: none;
+  color: #5f6368;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s;
+}
+
+.chat-close-icon-btn:hover {
+  background-color: rgba(60, 64, 67, 0.08);
+  color: #202124;
+}
+
+/* Context notice disclaimer text box */
+.chat-disclaimer-info {
+  background-color: #f8f9fa;
+  margin: 4px 16px 12px 16px;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #5f6368;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* --- Message Streams List --- */
+.chat-messages-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Individual text bubble structures */
+.chat-message-bubble-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 85%;
+}
+
+.chat-message-bubble-row.self-author {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.chat-message-meta {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+.message-sender-name {
+  font-weight: 500;
+  color: #3c4043;
+}
+
+.chat-message-bubble-row.self-author .message-sender-name {
+  color: #1a73e8;
+}
+
+.chat-message-payload-text {
+  background-color: #f1f3f4;
+  color: #202124;
+  padding: 10px 14px;
+  border-radius: 0px 12px 12px 12px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.chat-message-bubble-row.self-author .chat-message-payload-text {
+  background-color: #e8f0fe;
+  color: #137333;
+  color: #174ea6;
+  border-radius: 12px 0px 12px 12px;
+}
+
+/* --- Composer Input Tray area --- */
+.chat-input-composer-tray {
+  padding: 16px 24px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px solid #f1f3f4;
+}
+
+.chat-input-composer-tray input {
+  flex: 1;
+  height: 40px;
+  background-color: #f1f3f4;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  padding: 0 16px;
+  font-size: 14px;
+  color: #202124;
+  outline: none;
+  transition: all 0.15s ease;
+}
+
+.chat-input-composer-tray input:focus {
+  background-color: #ffffff;
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 1px #1a73e8;
+}
+
+.chat-submit-action-btn {
+  background-color: #1a73e8;
+  color: #ffffff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.15s, opacity 0.15s;
+}
+
+.chat-submit-action-btn:hover {
+  background-color: #1557b0;
+}
+
+.chat-submit-action-btn.barren {
+  background-color: transparent;
+  color: #bcc1c6;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* --- Control Buttons UI feedback extensions --- */
+.panel-icon-btn.active {
+  color: #1a73e8;
+  background-color: rgba(26, 115, 232, 0.1);
+}
+
+/* Notification badge indicator for tracking closed room activity */
+.panel-icon-btn.has-badge {
+  position: relative;
+}
+
+.panel-icon-btn.has-badge::after {
+  content: attr(data-badge);
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background-color: #c5221f;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #202124;
+}
+
+/* Reset notification if counter element contains exactly 0 */
+.panel-icon-btn[data-badge="0"]::after {
+  display: none;
+}
+
+/* Responsive adjustment layer for mobile setups */
+@media (max-width: 768px) {
+  .meet-workspace-core {
+    flex-direction: column;
+  }
+  .meet-sidebar-chat-panel {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-top: 12px;
+    height: 300px;
+  }
+}
+
+/* --- MEETING CODE CLIPBOARD COPY WIDGET --- */
+.meeting-info-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.copy-room-action-btn {
+  background: transparent;
+  border: none;
+  color: #475569; /* Slate secondary gray matching Voxel text */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 50%; /* Clean profile matching bottom circle panel options */
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.copy-room-action-btn:hover {
+  background-color: rgba(15, 23, 42, 0.06);
+  color: #0f172a; /* Deep charcoal text matching lift highlight triggers */
+}
+
+/* Transmute styling structures directly when trigger fires */
+.copy-room-action-btn.copied {
+  color: #0d9b20 !important; /* Transitions instantly into Voxel brand green */
+  background-color: rgba(13, 155, 32, 0.08);
+}
+
+.copy-btn-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
