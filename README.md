@@ -8,7 +8,7 @@ Voxel is a modern, responsive, full-stack real-time video conferencing applicati
 
 ### Frontend Engine
 * **React.js & Hooks:** Manages declarative interface modules, context state engines, and custom input sanitization routines.
-* **Vanilla CSS (Modular Layers):** Embedded dark-mode high-tech aesthetic containing geometric viewports designed for absolute view scalability.
+* **Vanilla CSS (Modular Layers):** Embedded light-mode high-tech aesthetic containing geometric viewports designed for absolute view scalability.
 
 ### Backend Infrastructure
 * **Node.js & Express:** Custom RESTful API layers mapping room management sequences and protected operations.
